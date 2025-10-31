@@ -1,13 +1,16 @@
 package parser;
 
+import java.lang.Integer;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.text.ParseException;
 import simulation.Simulation;
+import aircraft.AircraftFactory;
+import exceptions.InvalidAircraft;
 
 public class Parser {
-    public Parser(String path, Simulation sim) throws FileNotFoundException, ParseException {
+    public Parser(String path, Simulation sim) throws FileNotFoundException, ParseException, InvalidAircraft {
         if (path.length() == 0) throw new FileNotFoundException();
         File    scenario = new File(path);
         Scanner reader = new Scanner(scenario);
@@ -31,6 +34,7 @@ public class Parser {
             throw new ParseException("Simulation interation count must be a positive integer", lineNum);
         };
         sim.setIterCount(iterCount);
+        AircraftFactory factory = new AircraftFactory();
         while (reader.hasNextLine()) {
             lineNum++;
             String      line = reader.nextLine();
@@ -39,6 +43,14 @@ public class Parser {
                 reader.close();
                 throw new ParseException("Invalid format, expected: TYPE NAME LONGITUDE LATITUDE HEIGHT", lineNum);
             }
+            Coordinates coord;
+            try {
+                coord = new Coordinates(Integer.parseInt(words[2]), Integer.parseInt(words[3]), Integer.parseInt(words[4]));
+                if (coord.getHeight() < 0 || coord.getLatitude() < 0 || coord.getLongitude() < 0) throw new Exception();
+            } catch (Exception e) {
+                throw new ParseException("Invalid coordinate, expected a positive integer", lineNum);
+            }
+            factory.newAircraft(words[0], words[1], coord);
         }
         reader.close();
     }

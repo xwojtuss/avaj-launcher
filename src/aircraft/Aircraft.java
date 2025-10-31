@@ -2,7 +2,7 @@ package aircraft;
 
 import parser.Coordinates;
 
-class Aircraft {
+abstract class Aircraft extends Flyable {
     protected long          id;
     protected String        name;
     protected Coordinates   coordinates;
