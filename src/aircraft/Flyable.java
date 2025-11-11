@@ -9,6 +9,5 @@ public abstract class Flyable {
     public void registerTower(WeatherTower p_tower) {
         this.weatherTower = p_tower;
         p_tower.register(this);
-        System.out.println("Tower says: " + this + " registered to weather tower.");
     }
 }

@@ -1,6 +1,7 @@
 package simulation;
 
 import parser.Parser;
+import logger.Logger;
 import tower.WeatherTower;
 import java.text.ParseException;
 import java.io.FileNotFoundException;
@@ -22,6 +23,7 @@ public class Simulation {
         } catch (Exception e) {
             errorExit(e.getMessage());
         }
+        Logger.getInstance().end();
     }
 
     static void errorExit(String message) {
