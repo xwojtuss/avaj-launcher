@@ -14,4 +14,9 @@ public class Baloon extends Aircraft {
     public void updateConditions() {
 
     }
+
+    @Override
+    public String   toString() {
+        return "Baloon#" + this.name + "(" + this.id + ")";
+    }
 }

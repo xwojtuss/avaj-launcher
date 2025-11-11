@@ -14,4 +14,9 @@ public class JetPlane extends Aircraft {
     public void updateConditions() {
         
     }
+
+    @Override
+    public String   toString() {
+        return "JetPlane#" + this.name + "(" + this.id + ")";
+    }
 }
