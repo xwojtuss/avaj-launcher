@@ -16,7 +16,7 @@ public class WeatherProvider {
     }
 
     public String  getCurrentWeather(Coordinates p_coordinates) {
-        long    sum = p_coordinates.getHeight() + p_coordinates.getLatitude() + p_coordinates.getLongitude();
+        long    sum = (long)(p_coordinates.getHeight() * 1.5) + (long)(p_coordinates.getLatitude() * 1.5) + (long)(p_coordinates.getLongitude() * 1.5);
 
         return instance.weather[(int)(sum % instance.weather.length)];
     }

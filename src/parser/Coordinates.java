@@ -22,4 +22,14 @@ public class Coordinates {
     public int  getHeight() {
         return this.height;
     }
+
+    public Coordinates  add(int p_longitude, int p_latitude, int p_height) {
+        this.longitude += p_longitude;
+        this.latitude += p_latitude;
+        if (this.height + p_height >= 100)
+            this.height = 100;
+        else
+            this.height += p_height;
+        return this;
+    }
 }

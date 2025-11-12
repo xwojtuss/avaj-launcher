@@ -6,6 +6,7 @@ import aircraft.Baloon;
 import aircraft.Helicopter;
 import aircraft.JetPlane;
 import exceptions.InvalidAircraft;
+import exceptions.InvalidName;
 
 public class AircraftFactory {
     private static AircraftFactory  instance;
@@ -21,7 +22,8 @@ public class AircraftFactory {
         return instance;
     }
 
-    public Flyable  newAircraft(String p_type, String p_name, Coordinates p_coordinates) throws InvalidAircraft {
+    public Flyable  newAircraft(String p_type, String p_name, Coordinates p_coordinates) throws InvalidAircraft, InvalidName {
+        if (p_name.length() <= 0) throw new InvalidName("Invalid name of aircraft");
         switch (p_type) {
             case "Baloon":
                 return new Baloon(instance.nextId++, p_name, p_coordinates);

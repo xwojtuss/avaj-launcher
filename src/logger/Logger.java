@@ -33,9 +33,25 @@ public class Logger {
 
     public void logRegister(Flyable p_flyable, Tower p_tower) {
         if (instance.output == null) return;
-        
+
         try {
             instance.output.write("Tower says: " + p_flyable + " registered to " + camelToSnakeSpace(p_tower.getClass().getSimpleName()) + ".\n");
+        } catch (Exception e) {}
+    }
+
+    public void logUnregister(Flyable p_flyable, Tower p_tower) {
+        if (instance.output == null) return;
+
+        try {
+            instance.output.write("Tower says: " + p_flyable + " unregistered from " + camelToSnakeSpace(p_tower.getClass().getSimpleName()) + ".\n");
+        } catch (Exception e) {}
+    }
+
+    public void logWeatherChange(Flyable p_flyable, String message) {
+        if (instance.output == null) return;
+
+        try {
+            instance.output.write(p_flyable + ": " + message + "\n");
         } catch (Exception e) {}
     }
 

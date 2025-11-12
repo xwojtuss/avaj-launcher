@@ -8,10 +8,11 @@ import java.text.ParseException;
 import simulation.Simulation;
 import aircraft.AircraftFactory;
 import exceptions.InvalidAircraft;
+import exceptions.InvalidName;
 import tower.WeatherTower;
 
 public class Parser {
-    public Parser(String path, Simulation sim, WeatherTower tower) throws FileNotFoundException, ParseException, InvalidAircraft {
+    public Parser(String path, Simulation sim, WeatherTower tower) throws FileNotFoundException, ParseException, InvalidAircraft, InvalidName {
         if (path.length() == 0) throw new FileNotFoundException();
         File    scenario = new File(path);
         Scanner reader = new Scanner(scenario);
@@ -46,12 +47,13 @@ public class Parser {
             Coordinates coord;
             try {
                 coord = new Coordinates(Integer.parseInt(words[2]), Integer.parseInt(words[3]), Integer.parseInt(words[4]));
-                if (coord.getHeight() < 0 || coord.getLatitude() < 0 || coord.getLongitude() < 0) throw new Exception();
+                if (coord.getHeight() <= 0 || coord.getLatitude() <= 0 || coord.getLongitude() <= 0) throw new Exception();
             } catch (Exception e) {
                 throw new ParseException("Invalid coordinate, expected a positive integer", lineNum);
             }
             AircraftFactory.getInstance().newAircraft(words[0], words[1], coord).registerTower(tower);
         }
+        if (lineNum == 1) throw new ParseException("Expected at least one aircraft", lineNum);
         reader.close();
     }
 }
